@@ -1,0 +1,23 @@
+header{
+    display: flex;
+    font-family: 'geist';
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 15px;
+
+}
+
+header .logo{
+    display: flex;
+    font-size: 2rem;
+    gap: 8px;
+    align-items: center;
+}
+
+header span{
+    font-weight: 600;
+}
+
+header img{
+    width: 40px;
+}

@@ -1,0 +1,87 @@
+main{
+    font-family:'geist';
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#typing-sentence span.correct{
+    color: #22c55e;    
+}
+
+#typing-sentence span.incorrect{
+    color: #ef4444;
+    text-decoration: underline;
+}
+
+.heading h1{
+    margin-bottom: 1.5rem ;
+    font-size: 1.8rem;
+}
+#text-input{
+    text-indent: 10px;
+    padding: 10px;
+    border: none;
+    resize: none;
+    font-size: 1.4rem;
+    font-family: "geist";
+    text-align: center;
+}
+#text-input::placeholder{
+    padding: 3px;
+    font-size: 1.3rem;
+    
+}
+
+#text-input:focus{
+    border: none;
+    outline: none;
+}
+
+#text-input:focus::placeholder{
+    color: transparent;
+}
+
+
+
+#typing-sentence {
+    font-size: 2rem;
+    padding: 10px 20px;
+    margin-bottom: 2rem;
+}    
+
+.stats{
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 0.05rem;
+
+}
+
+#restart-button{
+    margin-top: 3rem;
+
+}
+
+#restart-button button{
+    border-radius: 8px;
+    font-family: "geist";
+    padding: 8px 20px;
+    font-size: 1rem;
+    border: none;
+}
+
+#restart-button button:hover{
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.3s ease;
+    border: none;
+}
