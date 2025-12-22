@@ -7,6 +7,15 @@ main{
     flex-direction: column;
 }
 
+.time-settings{
+    color: white;
+    
+}
+
+.time-settings button{
+    margin-left: 15px;
+}
+
 #typing-sentence span.correct{
     color: #22c55e;    
 }
@@ -14,6 +23,11 @@ main{
 #typing-sentence span.incorrect{
     color: #ef4444;
     text-decoration: underline;
+}
+
+#typing-sentence{
+    width: 70vw;
+    text-align: center;
 }
 
 .heading h1{
@@ -30,6 +44,7 @@ main{
     text-align: center;
     color: white;
     background: transparent;
+    max-width: 70vw;
 }
 #text-input::placeholder{
     padding: 3px;

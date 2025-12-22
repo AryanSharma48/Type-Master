@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import "../styles/main.css"
 
 export default function Main() {
@@ -14,16 +14,27 @@ export default function Main() {
   const [typed, setTyped] = useState("");
   const [time, setTime] = useState(0);
   const [wpm, setWpm] = useState(0);
+  const [rawWpm , setRawWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(0);
   const [startTime, setStartTime] = useState(null);
 
+  const [timerSettings , setTimerSettings ] = useState(10000);
+
   const timerRef = useRef(null);
   const textareaRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   // load a random sentence when component mounts or when restarting
   useEffect(() => {
     loadText();
   }, []);
+
+
+  function timeSettings () {
+    setTimerSettings(
+      prev => prev = 30000
+    )
+  }
 
   function loadText() {
     const random = list[Math.floor(Math.random() * list.length)];
@@ -31,6 +42,7 @@ export default function Main() {
     setTyped("");
     setTime(0);
     setWpm(0);
+    setRawWpm(0);
     setAccuracy(0);
     setStartTime(null);
     if (timerRef.current) {
@@ -44,17 +56,30 @@ export default function Main() {
   }
 
   function startTimer() {
+
+    if(timerRef.current) return;
+
     const now = Date.now();
     setStartTime(now);
+
     timerRef.current = setInterval(() => {
-      setTime(((Date.now() - now) / 1000).toFixed(1));
+      setTime((Date.now() - now) / 1000);
     }, 100);
+
+    timeoutRef.current = setTimeout(() => {
+      stopTimer();
+    }, timerSettings);
+
   }
 
   function stopTimer() {
     if (timerRef.current) {
       clearInterval(timerRef.current);
       timerRef.current = null;
+    }
+    if(timeoutRef.current){
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
   }
 
@@ -75,12 +100,25 @@ export default function Main() {
       }
     }
 
+    function toZero(n){
+      return Math.max(0,n);
+    }
+    
+
     const totalCharsTyped = typed.length;
     if (totalCharsTyped > 0) {
-      const wpmCalc = Math.round((totalCharsTyped / 5) / elapsedMinutes);
+
+      const rawWpmCalc = toZero(
+        Math.round((totalCharsTyped / 5) / elapsedMinutes))
+      ;
+      const wpmCalc = toZero(
+        Math.round(((correctChars - (totalCharsTyped - correctChars)) / 5) / elapsedMinutes))
+      ;
       const accuracyCalc = Math.round((correctChars / totalCharsTyped) * 100);
       setWpm(wpmCalc);
       setAccuracy(accuracyCalc);
+      setRawWpm(rawWpmCalc);
+      
     }
   }, [typed, time, targetText]);
 
@@ -88,14 +126,10 @@ export default function Main() {
     const value = e.target.value;
 
     if (!startTime) {
-      startTimer();
-      setTimeout(() => {
-        stopTimer()
-      }, 10000);
-    
+      startTimer();  
     }
 
-    setTyped(value);
+    setTyped(e.target.value);
 
     //TO CHOOSE TO TYPE A NUMBER OF WORDS
 
@@ -150,10 +184,13 @@ export default function Main() {
 
       <div className="stats">
         <div>
-          Time : <span id="time">{time}</span>s
+          Time : <span id="time">{Math.round(time)}</span>s
         </div>
         <div>
           WPM : <span id="wpm">{wpm}</span>
+        </div>
+        <div>
+          WPM(Raw) : <span>{rawWpm}</span>
         </div>
         <div>
           Accuracy : <span id="accuracy">{accuracy}</span>%
