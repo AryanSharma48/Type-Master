@@ -143,6 +143,8 @@ export default function Main() {
     loadText();
   }
 
+  const showTime = `${(timerSettings /1000)}s`;
+
   return (
     <main>
       <div className="heading">
@@ -167,6 +169,26 @@ export default function Main() {
             color: timerSettings === 60000 ? "white" : "grey"
           }} 
         >60</button>
+      </div>
+
+      {/* Progress Bar */}
+      <div style={{
+        width: '90%',
+        maxWidth: '900px',
+        height: '6px',
+        background: 'var(--glass-bg)',
+        borderRadius: '10px',
+        overflow: 'hidden',
+        marginBottom: '2rem',
+        border: '1px solid var(--glass-border)',
+      }}>
+        <div style={{
+          height: '100%',
+          width: `${startTime ? Math.min((time / (timerSettings / 1000)) * 100, 100) : 0}%`,
+          background: 'var(--primary-gradient)',
+          transition: 'width 0.1s linear',
+          boxShadow: '0 0 10px rgba(102, 126, 234, 0.5)',
+        }} />
       </div>
 
       <div id="typing-sentence">
@@ -204,7 +226,7 @@ export default function Main() {
 
       <div className="stats">
         <div>
-          Time : <span id="time">{Math.round(time)}</span>s
+          Time({showTime}): <span id="time">{Math.round(time)}</span>s
         </div>
         <div>
           WPM : <span id="wpm">{wpm}</span>
