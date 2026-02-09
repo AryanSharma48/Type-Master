@@ -12,24 +12,34 @@ header {
 
 header .logo {
     display: flex;
-    gap: 15px;
+    gap: 12px;
+    /* Slightly tighter gap */
     align-items: center;
     color: var(--white);
     font-family: 'Press Start 2P', cursive;
     font-size: 2rem;
-    text-shadow: 4px 4px 0 var(--black);
-    letter-spacing: 0.1em;
+    letter-spacing: 0;
+    /* Letters closer together */
+    line-height: 1;
 }
 
 header .logo span {
     color: var(--white);
+    display: flex;
+    align-items: center;
+}
+
+header .logo span .poke-red {
+    color: #FF0000;
 }
 
 header img {
-    width: 40px;
-    height: 40px;
+    width: 55px;
+    /* Slightly smaller to match text height better */
+    height: auto;
     image-rendering: pixelated;
-    filter: drop-shadow(4px 4px 0 var(--black));
+    margin-bottom: 4px;
+    /* Optical alignment tweak for pixel fonts */
 }
 
 @media (max-width: 768px) {

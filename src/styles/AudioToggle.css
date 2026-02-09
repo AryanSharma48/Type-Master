@@ -1,0 +1,50 @@
+.audio-toggle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.music-btn {
+    background: var(--white);
+    border: 4px solid var(--black);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--black);
+    transition: all 0.1s;
+    image-rendering: pixelated;
+}
+
+.music-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--black);
+}
+
+.music-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--black);
+}
+
+.music-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+}
+
+.music-icon svg {
+    display: block;
+}
+
+.music-btn.playing {
+    background: var(--mario-grass);
+}
+
+.music-btn.muted {
+    background: var(--mario-ground);
+}
