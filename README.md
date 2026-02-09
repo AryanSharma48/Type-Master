@@ -18,7 +18,6 @@ Type the random sentence as fast and accurately as you can — and watch your **
 
 ## 🛠 Tech Stack
 
-💻 **HTML5** – Structure  
 🎨 **Tailwind** – Styling & layout  
 ⚙️ **React with JavaScript** – Typing logic, stats & timer  
 

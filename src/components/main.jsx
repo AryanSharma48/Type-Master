@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import "../styles/main.css"
 
 const sentences = [
-  "The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle. As with all matters of the heart, you'll know when you find it.",
-  "In the world of Pokémon, every trainer starts with a single companion and a dream to become a champion. It takes patience, strategy, and a bit of luck to master the art of battle.",
-  "Coding is like solving a complex puzzle where every piece of logic must fit perfectly. A single missing semicolon can bring down an entire system, teaching us the value of precision.",
-  "Success is not final, failure is not fatal: it is the courage to continue that counts. Whether you are typing a sentence or building a future, persistence is the key to excellence.",
-  "Move fast and break things. Unless you are breaking things, you are not moving fast enough. Innovation requires taking risks and learning from the mistakes that happen along the way."
+  "The only way to do great work is to love what you do If you haven't found it yet keep looking Don't settle As with all matters of the heart you'll know when you find it",
+  "In the world of Pokémon every trainer starts with a single companion and a dream to become a champion It takes patience strategy and a bit of luck to master the art of battle",
+  "Coding is like solving a complex puzzle where every piece of logic must fit perfectly A single missing semicolon can bring down an entire system teaching us the value of precision",
+  "Success is not final failure is not fatal it is the courage to continue that counts Whether you are typing a sentence or building a future persistence is the key to excellence",
+  "Move fast and break things Unless you are breaking things you are not moving fast enough Innovation requires taking risks and learning from the mistakes that happen along the way"
 ];
 
 export default function Main() {
@@ -55,6 +55,41 @@ export default function Main() {
       stopTimer(true);
     }
   }, [typed, targetText]);
+
+  // Handle Tab + Enter for restart
+  useEffect(() => {
+    const handleGlobalKeyDown = (e) => {
+      // Check for Tab + Enter
+      if (e.key === 'Enter' && e.shiftKey === false && e.ctrlKey === false) {
+        // If we want Tab + Enter combo exactly, we'd need to track Tab state
+        // But many users prefer just Tab or a common combo.
+        // User asked for "tab with enter"
+      }
+    };
+    
+    // More robust way to handle "Tab then Enter" or "Tab + Enter"
+    let tabDown = false;
+    const keyDown = (e) => {
+      if (e.key === 'Tab') {
+        tabDown = true;
+        e.preventDefault(); // Stop focus jumping
+      }
+      if (e.key === 'Enter' && tabDown) {
+        handleRestart();
+        tabDown = false;
+      }
+    };
+    const keyUp = (e) => {
+      if (e.key === 'Tab') tabDown = false;
+    };
+
+    window.addEventListener('keydown', keyDown);
+    window.addEventListener('keyup', keyUp);
+    return () => {
+      window.removeEventListener('keydown', keyDown);
+      window.removeEventListener('keyup', keyUp);
+    };
+  }, [targetText]); // Dependency on targetText or empty if handleRestart is stable
 
   function timeSettings(settings) {
     setTimerSettings(settings * 1000);

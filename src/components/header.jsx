@@ -7,12 +7,6 @@ export default function Header(){
                 <img src="src/images/logo.png" alt="logo" />
                 <span>PokéType</span>
             </div>
-            
-            {/* <div className="nav">
-                <span>Settings</span>
-                <span className="profile">Profile</span>
-            </div> */}
-            
         </header>
     )
 }
